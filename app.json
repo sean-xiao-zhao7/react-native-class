@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HelloWorld",
-    "slug": "tracks",
+    "name": "Nodis",
+    "slug": "nodis",
     "platforms": [
       "ios",
       "android",

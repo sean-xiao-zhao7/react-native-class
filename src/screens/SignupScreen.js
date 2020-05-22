@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ThemeProvider, Button, Input, Text, Image } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import logo from '../images/logo.png';
+import { Context as AuthContext } from '../context/authContext';
 
 const theme = {
   Input: {
@@ -23,15 +24,24 @@ const theme = {
 };
 
 const SignupScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { state, signup } = useContext(AuthContext);
+
+  //console.log(state.errorMessage);
+
   return <View style={styles.container}>
       <Image source={logo} style={styles.logo} />
       <Spacer>
         <Text h3 style={styles.header}>Sign up to Nodis</Text>
       </Spacer>
       <ThemeProvider theme={theme}>
-        <Input label='Username' />
-        <Input label='Password' />
-        <Button title='Sign up now!'/>
+        <Input label='Username' value={email} onChangeText={setEmail} autoCapitalize="none" autoCorrect={false} />
+        <Input label='Password' value={password} onChangeText={setPassword} autoCapitalize="none" autoCorrect={false} secureTextEntry />
+        <Button title='Sign up now!' onPress={() => {
+            signup({email, password})
+          }}
+        />
       </ThemeProvider>
     </View>;
 };
